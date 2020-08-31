@@ -8,6 +8,7 @@ from web3.gas_strategies.time_based import medium_gas_price_strategy,fast_gas_pr
 from web3.middleware import geth_poa_middleware #rinkeby
 
 #Setting up web3
+#w3 = Web3(HTTPProvider("http://127.0.0.1:8545",request_kwargs={'timeout':60})) #local node
 #w3 = Web3(HTTPProvider("https://mainnet.infura.io/v3/12658a3bd98b410483b8cd44328533d0",request_kwargs={'timeout':60})) #mainnet
 w3 = Web3(HTTPProvider("https://rinkeby.infura.io/v3/12658a3bd98b410483b8cd44328533d0",request_kwargs={'timeout':60})) #rinkeby
 w3.middleware_onion.inject(geth_poa_middleware, layer=0) #rinkeby
@@ -43,7 +44,8 @@ for t in Tokens:
         print(amount)
         print("asking for ETH:")
         print(eth_amount)"""
-        tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(amount,eth_amount,100000000000).buildTransaction({
+        tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(
+            amount,eth_amount,100000000000).buildTransaction({
                 'from': address,
                 'nonce': w3.eth.getTransactionCount(address)
             }

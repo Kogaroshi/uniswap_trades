@@ -6,6 +6,7 @@ import json
 from web3.gas_strategies.time_based import medium_gas_price_strategy
 from web3.middleware import geth_poa_middleware #rinkeby
 
+#w3 = Web3(HTTPProvider("http://127.0.0.1:8545",request_kwargs={'timeout':60})) #local node
 #w3 = Web3(HTTPProvider("https://mainnet.infura.io/v3/12658a3bd98b410483b8cd44328533d0",request_kwargs={'timeout':60})) #mainnet
 w3 = Web3(HTTPProvider("https://rinkeby.infura.io/v3/12658a3bd98b410483b8cd44328533d0",request_kwargs={'timeout':60})) #rinkeby
 w3.middleware_onion.inject(geth_poa_middleware, layer=0) #rinkeby
