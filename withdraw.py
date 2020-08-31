@@ -39,11 +39,10 @@ for t in Tokens:
             abi= uniswap_exchange_abi
         )
         eth_amount = (uniswap_erc20_exchange.functions.getTokenToEthInputPrice(amount).call())
-        print("Token amount :")
+        """print("Token amount :")
         print(amount)
         print("asking for ETH:")
-        print(eth_amount)
-        """
+        print(eth_amount)"""
         tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(amount,eth_amount,100000000000).buildTransaction({
                 'from': address,
                 'nonce': w3.eth.getTransactionCount(address)
@@ -51,4 +50,4 @@ for t in Tokens:
         )
         tx = w3.eth.account.signTransaction(tx_dict, private_key)
         result = w3.eth.sendRawTransaction(tx.rawTransaction)
-        print(result.hex())"""
+        print(result.hex())

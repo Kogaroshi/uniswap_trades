@@ -30,7 +30,7 @@ ethereum_amount = 0.005
 erc20_amount = (uniswap_erc20_exchange.functions.getEthToTokenInputPrice(w3.toWei(ethereum_amount, 'ether')).call())
 
 
-print ("If you give me %s ETH, you will receive %s of the Token (%s ETH/ERC20)" % (ethereum_amount, erc20_amount / 10**18, ethereum_amount / (erc20_amount / 10**18)))
+print ("Send %s ETH to receive %s of the Token (%s ETH/ERC20)" % (ethereum_amount, erc20_amount / 10**18, ethereum_amount / (erc20_amount / 10**18)))
 
 
 tx_dict = uniswap_erc20_exchange.functions.ethToTokenSwapInput(
