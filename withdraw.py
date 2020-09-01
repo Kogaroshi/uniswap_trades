@@ -3,6 +3,7 @@
 from web3 import Web3, HTTPProvider
 import sys
 import json
+import time
 from tokens import Tokens
 from web3.gas_strategies.time_based import medium_gas_price_strategy,fast_gas_price_strategy
 from web3.middleware import geth_poa_middleware #rinkeby
@@ -33,21 +34,25 @@ for t in Tokens:
         abi= Tokens[t]['abi']
     )
     amount = ERC20_contract.functions.balanceOf(address).call()
-    if(not w3.fromWei(amount,'ether') is 0):
+    if(w3.fromWei(amount,'ether') is not 0):
         #ERC20 to ETH trade
         uniswap_erc20_exchange = w3.eth.contract(
             address= Tokens[t]['uniswap_exchange'],
             abi= uniswap_exchange_abi
         )
         eth_amount = (uniswap_erc20_exchange.functions.getTokenToEthInputPrice(amount).call())
-        """print("Token amount :")
+        
+        print(t)
+        print("Token amount :")
         print(amount)
-        print("asking for ETH:")
-        print(eth_amount)"""
+        print("asking for ETH :")
+        print(eth_amount)
+
         tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(
-            amount,eth_amount,100000000000).buildTransaction({
+            amount,eth_amount,int(time.time())+10*60).buildTransaction({
                 'from': address,
-                'nonce': w3.eth.getTransactionCount(address)
+                'nonce': w3.eth.getTransactionCount(address),
+                'value': 0
             }
         )
         tx = w3.eth.account.signTransaction(tx_dict, private_key)
