@@ -48,13 +48,26 @@ for t in Tokens:
         print("asking for ETH :")
         print(eth_amount)
 
-        tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(
+        tx_dict = uniswap_erc20_exchange.functions.balanceOf(
+            address).buildTransaction({
+                'from': address,
+                'nonce': w3.eth.getTransactionCount(address)
+            }
+        )
+        
+        """tx_dict = uniswap_erc20_exchange.functions.tokenToEthSwapInput(
             amount,eth_amount,int(time.time())+10*60).buildTransaction({
                 'from': address,
                 'nonce': w3.eth.getTransactionCount(address),
                 'value': 0
             }
         )
+        """
+        
+        #tx_dict['gas'] = 1000000000000
+        
         tx = w3.eth.account.signTransaction(tx_dict, private_key)
         result = w3.eth.sendRawTransaction(tx.rawTransaction)
         print(result.hex())
+        txReceipt = w3.eth.waitForTransactionReceipt(result)
+        print(txReceipt['logs'])
