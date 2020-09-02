@@ -50,7 +50,7 @@ for t in Tokens:
         print(amount)
         print("asking for ETH :")
         print(eth_amount)
-
+        #Approve ERC20 spending
         approve_tx_dict = ERC20_contract.functions.approve(
             uniswap_router2_address, amount).buildTransaction({
                 'from': address,
@@ -63,8 +63,8 @@ for t in Tokens:
         approve_txReceipt = w3.eth.waitForTransactionReceipt(approve_result)
         #print(approve_txReceipt)
 
-        time.sleep(10) #give time for the transaction to be accepted so the nounce increase
-
+        time.sleep(10) #give time for the transaction to be accepted so the nounce increases
+        #Uniswap trade transaction
         tx_dict = uniswap_router2.functions.swapExactTokensForETH(
             amount, eth_amount, [Tokens[t]['address'], weth_address], address, int(time.time())+10*60).buildTransaction({
                 'from': address,
@@ -78,4 +78,4 @@ for t in Tokens:
         result = w3.eth.sendRawTransaction(tx.rawTransaction)
         print(result.hex())
         txReceipt = w3.eth.waitForTransactionReceipt(result)
-        time.sleep(10) #give time for the transaction to be accepted so the nounce increase
+        time.sleep(10) #give time for the transaction to be accepted so the nounce increases
