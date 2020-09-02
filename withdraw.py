@@ -45,11 +45,10 @@ for t in Tokens:
     amount = ERC20_contract.functions.balanceOf(address).call()
     if(w3.fromWei(amount,'ether') is not 0):
         eth_amount = uniswap_router2.functions.getAmountsOut(amount, [Tokens[t]['address'], weth_address]).call()[-1]
-        print(t)
-        print("Token amount :")
-        print(amount)
+        print(t + " amount :")
+        print(w3.fromWei(amount, 'ether'))
         print("asking for ETH :")
-        print(eth_amount)
+        print(w3.fromWei(eth_amount, 'ether'))
         #Approve ERC20 spending
         approve_tx_dict = ERC20_contract.functions.approve(
             uniswap_router2_address, amount).buildTransaction({
