@@ -95,7 +95,7 @@ for t in Tokens:
             )
             approve_tx = w3.eth.account.signTransaction(approve_tx_dict, private_key)
             approve_result = w3.eth.sendRawTransaction(approve_tx.rawTransaction)
-            print('\033[92m' + 'Transaction is being processed - Transactino hash : ' + '\033[0m')
+            print('\033[92m' + 'Approve ERC20 spending - Transaction hash : ' + '\033[0m')
             print(approve_result.hex())
             approve_txReceipt = w3.eth.waitForTransactionReceipt(approve_result)
         except Exception as e:
@@ -117,7 +117,7 @@ for t in Tokens:
             )
             tx = w3.eth.account.signTransaction(tx_dict, private_key)
             result = w3.eth.sendRawTransaction(tx.rawTransaction)
-            print('\033[92m' + 'Transaction is being processed - Transactino hash : ' + '\033[0m')
+            print('\033[92m' + 'Transaction is being processed - Transaction hash : ' + '\033[0m')
             print(result.hex())
             txReceipt = w3.eth.waitForTransactionReceipt(result)
         except Exception as e:

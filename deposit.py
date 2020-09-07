@@ -81,7 +81,7 @@ for t in tokens:
         )
         tx = w3.eth.account.signTransaction(tx_dict, private_key)
         result = w3.eth.sendRawTransaction(tx.rawTransaction)
-        print('\033[92m' + 'Transaction is being processed - Transactino hash : ' + '\033[0m')
+        print('\033[92m' + 'Transaction is being processed - Transaction hash : ' + '\033[0m')
         print(result.hex())
         txReceipt = w3.eth.waitForTransactionReceipt(result)
     except Exception as e:
